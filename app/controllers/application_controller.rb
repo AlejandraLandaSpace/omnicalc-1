@@ -7,4 +7,10 @@ def calculate_square
   @square_of_nums = @nums ** 2
   render({:template=>"calculation_templates/square_results.html.erb"})
 end
+def calculate_random
+  @lower = params.fetch("user_min").to_f
+  @upper = params.fetch("user_max").to_f
+  render({:template=>"calculation_templates/rand_results.html.erb"})
+
+end
 end
