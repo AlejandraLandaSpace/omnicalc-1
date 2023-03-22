@@ -26,14 +26,17 @@ def new_payment
   render({:template=>"calculation_templates/new_payment.html.erb"})
 end
 def payment_results
-  @apr = params.fetch("user_apr").to_f/100.0/12.0
-  @formattedapr=format("%.4f%%",@apr*12*100)
+  apr = params.fetch("user_apr").to_f/100.0/12.0
+  @formattedapr=format("%.4f%%",apr*12*100)
   @years = params.fetch("user_years").to_i
-  @principal = params.fetch("user_pv").to_f
-  @formattedprincipal = sprintf("$%.2f",@principal)
+  monthly= @years * 12
+  principal = params.fetch("user_pv").to_f
 
-  @userpayments = (@principal * @apr * (1.0 + @apr)** @years) / ((1.0 + @apr) ** @years - 1.0)
-  @formattedpayment = sprintf("$%.2f",@userpayments)
+  userpayments = (principal * apr * (1.0 + apr)**  monthly) / ((1.0 + apr) **  monthly - 1.0)
+
+  @formattedpayment= userpayments.to_s(:currency)
+  @formattedprincipal = principal.to_s(:currency)
+
   
   render({:template=>"calculation_templates/payment_results.html.erb"})
 end
