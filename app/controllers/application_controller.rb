@@ -13,4 +13,11 @@ def calculate_random
   render({:template=>"calculation_templates/rand_results.html.erb"})
 
 end
+def calculate_square_root
+  render({:template => "calculation_templates/square_root_form.html.erb"})
+end
+def square_root_results
+  
+  render({:template => "calculation_templates/square_root_results.html.erb"})
+end
 end
